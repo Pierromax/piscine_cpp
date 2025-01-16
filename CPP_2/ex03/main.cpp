@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:45:16 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/14 21:31:07 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:39:04 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int main()
     Point p4(Fixed(0), Fixed(0));    // Sur A
     Point p5(Fixed(2), Fixed(1));    // Intérieur
 
-    if (bsp(a, b, c, p1))
-		std::cout << "is in" << std::endl;
+    bsp(a, b, c, p1) ? std::cout << "p1 is in" << std::endl : std::cout << "p1 is out" << std::endl;
+    bsp(a, b, c, p2) ? std::cout << "p2 is in" << std::endl : std::cout << "p2 is out" << std::endl;
+    bsp(a, b, c, p3) ? std::cout << "p3 is in" << std::endl : std::cout << "p3 is out" << std::endl;
+    bsp(a, b, c, p4) ? std::cout << "p4 is in" << std::endl : std::cout << "p4 is out" << std::endl;
+    bsp(a, b, c, p5) ? std::cout << "p5 is in" << std::endl : std::cout << "p5 is out" << std::endl;
 
     return 0;
 }

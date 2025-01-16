@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:41:27 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/07 21:39:40 by ple-guya         ###   ########.fr       */
+/*   Updated: 2024/12/17 03:46:24 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ Cat::Cat(std::string &type) : Animal(type)
 
 Cat::Cat(Cat &cpy) : Animal(cpy.type)
 {
-	this->catBrain = new Brain(*cpy.catBrain);
+	this->catBrain = cpy.catBrain;
 	std::cout << "Cat copy constructor called" << std::endl;
 }
 
 Cat::~Cat()
 {
-	if (this->catBrain)
-		delete this->catBrain;
+	delete [] catBrain;
 	std::cout << "Cat destructor called" << std::endl;
 }
 
@@ -49,11 +48,7 @@ Cat::~Cat()
 Cat	&Cat::operator=(Cat &cpy)
 {
 	if (this != &cpy)
-	{
 		this->type = cpy.type;
-		delete this->catBrain;
-		this->catBrain = cpy.catBrain;
-	}
 	return (*this);
 }
 /******************************/

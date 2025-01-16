@@ -1,66 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:41:27 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/07 21:39:40 by ple-guya         ###   ########.fr       */
+/*   Created: 2024/12/14 22:41:30 by ple-guya          #+#    #+#             */
+/*   Updated: 2024/12/17 03:47:24 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "Dog.hpp"
 #include <iostream>
 
 /******************************/
 /*  Constructor & destrutor   */
 /******************************/
 
-Cat::Cat() : Animal("Cat")
+Dog::Dog() : Animal("Dog")
 {
-	this->catBrain = new Brain();
-	std::cout << "default Cat constructor called" << std::endl;
+	this->dogBrain = new Brain();
+	std::cout << "default Dog constructor called" << std::endl;
 }
 
-Cat::Cat(std::string &type) : Animal(type)
+Dog::Dog(std::string &type) : Animal(type)
 {
-	this->catBrain = new Brain();
-	std::cout << "Cat constructor called" << std::endl;
+	this->dogBrain = new Brain();
+	std::cout << "Dog constructor called" << std::endl;
 }
 
-Cat::Cat(Cat &cpy) : Animal(cpy.type)
+Dog::Dog(Dog &cpy) : Animal(cpy.type)
 {
-	this->catBrain = new Brain(*cpy.catBrain);
-	std::cout << "Cat copy constructor called" << std::endl;
+	this->dogBrain = cpy.dogBrain;
+	std::cout << "Dog copy constructor called" << std::endl;
 }
 
-Cat::~Cat()
+Dog::~Dog()
 {
-	if (this->catBrain)
-		delete this->catBrain;
-	std::cout << "Cat destructor called" << std::endl;
+	delete [] dogBrain;
+	std::cout << "Dog destructor called" << std::endl;
 }
 
 /******************************/
 /*    surcharge d'opeateur    */
 /******************************/
 
-Cat	&Cat::operator=(Cat &cpy)
+Dog	&Dog::operator=(Dog &cpy)
 {
 	if (this != &cpy)
-	{
 		this->type = cpy.type;
-		delete this->catBrain;
-		this->catBrain = cpy.catBrain;
-	}
 	return (*this);
 }
+
 /******************************/
 /*      member function       */
 /******************************/
 
-void	Cat::makeSound() const
+void	Dog::makeSound() const
 {
-	std::cout << "Miaou Miaou (les jours de l'humaniter sont compter)" << std::endl;
+	std::cout << "Wouf Wouf" << std::endl;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fixed.hpp                                          :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:48:17 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/09 16:37:02 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:40:20 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ class Fixed
 		Fixed &operator=(const Fixed &fixedNB);
 		float toFloat(void) const;
 		int toInt(void) const;
-		friend std::ostream &operator<<(std::ostream &out, const Fixed &fixedNB);
 		int getRawBits( void ) const;
 		void setRawBits( int const raw );
 		~Fixed();
 };
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixedNB);
 
 #endif

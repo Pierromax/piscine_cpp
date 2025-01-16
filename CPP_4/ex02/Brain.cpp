@@ -1,67 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:41:30 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/07 21:39:54 by ple-guya         ###   ########.fr       */
+/*   Created: 2024/12/17 03:20:36 by ple-guya          #+#    #+#             */
+/*   Updated: 2024/12/17 03:39:23 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "Brain.hpp"
 #include <iostream>
 
 /******************************/
 /*  Constructor & destrutor   */
 /******************************/
 
-Dog::Dog() : Animal("Dog")
+Brain::Brain()
 {
-	this->dogBrain = new Brain();
-	std::cout << "default Dog constructor called" << std::endl;
+	for (int i = 0; i < 100; i++)
+		ideas[i] = "idee par default";
+	std::cout << "default Brain constructor called" << std::endl;
 }
 
-Dog::Dog(std::string &type) : Animal(type)
+Brain::Brain(const std::string &idea)
 {
-	this->dogBrain = new Brain();
-	std::cout << "Dog constructor called" << std::endl;
+	for (int i = 0; i < 100; i++)
+		ideas[i] = idea;
+	std::cout << "Brain constructor called" << std::endl;
 }
 
-Dog::Dog(Dog &cpy) : Animal(cpy.type)
-{
-	this->dogBrain = new Brain(*cpy.dogBrain);
-	std::cout << "Dog copy constructor called" << std::endl;
-}
+Brain::Brain(Brain &cpy)
+{	
+	for (int i = 0; i < 100; i++)
+		this->ideas[i] = cpy.ideas[i];
+	std::cout << "Brain copy constructor called" << std::endl;
+}	
 
-Dog::~Dog()
+Brain::~Brain()
 {
-	if (this->dogBrain)
-		delete dogBrain;
-	std::cout << "Dog destructor called" << std::endl;
+	std::cout << "Brain destructor called" << std::endl;
 }
 
 /******************************/
 /*    surcharge d'opeateur    */
 /******************************/
 
-Dog	&Dog::operator=(Dog &cpy)
+Brain	&Brain::operator=(Brain &cpy)
 {
 	if (this != &cpy)
 	{
-		this->type = cpy.type;
-		delete this->dogBrain;
-		this->dogBrain = new Brain(*cpy.dogBrain);
+		for (int i = 0; i < 100; i++)
+			this->ideas[i] = cpy.ideas[i];
 	}
 	return (*this);
 }
 
 /******************************/
-/*      member function       */
+/*    surcharge d'opeateur    */
 /******************************/
 
-void	Dog::makeSound() const
+std::string	Brain::getIdea(int index) const
 {
-	std::cout << "Wouf Wouf" << std::endl;
+	return(ideas[index]);
 }

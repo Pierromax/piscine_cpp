@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:48:17 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/14 20:41:52 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:40:34 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ class Fixed
 		void	setRawBits( int const raw );
 		//operateur
 		Fixed	&operator=(const Fixed &fixedNB);
-		friend	std::ostream &operator<<(std::ostream &out, const Fixed &fixedNB);
 		//operateur d'incrementaton
 		//pre-incremetation
 		Fixed	&operator++(void);
@@ -44,12 +43,12 @@ class Fixed
 		Fixed	operator++(int);
 		Fixed	operator--(int);
 		//comparaison
-		friend bool	operator==(Fixed const &a, Fixed const &b);
-		friend bool operator!=(Fixed const &a, Fixed const &b);
-		friend bool	operator<(Fixed const &a, Fixed const &b);
-		friend bool	operator>(Fixed const &a, Fixed const &b);
-		friend bool	operator<=(Fixed const &a, Fixed const &b);
-		friend bool	operator>=(Fixed const &a, Fixed const &b);
+		bool	operator==(Fixed const &a);
+		bool	operator!=(Fixed const &a);
+		bool	operator<(Fixed const &a);
+		bool	operator>(Fixed const &a);
+		bool	operator<=(Fixed const &a);
+		bool	operator>=(Fixed const &a);
 		Fixed		operator+(Fixed const &fixed);
 		Fixed		operator-(Fixed const &fixed);
 		Fixed		operator*(Fixed const &fixed);
@@ -62,5 +61,7 @@ class Fixed
 		//destructor
 		~Fixed();
 };
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixedNB);
 
 #endif

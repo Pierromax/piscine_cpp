@@ -22,4 +22,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY: all clean re
+.PHONY: all clean re fclean

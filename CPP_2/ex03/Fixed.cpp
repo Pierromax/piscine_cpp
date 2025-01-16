@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:42:12 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/14 21:30:35 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:51:15 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,33 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixedNB)
 }
 
 //operateur de comparaison
-bool	operator==(Fixed const &a, Fixed const &b)
+bool	Fixed::operator==(Fixed const &a)
 {
-	return a.getRawBits() == b.getRawBits();
+	return a.getRawBits() == getRawBits();
 }
 
-bool	operator!=(Fixed const &a, Fixed const &b)
+bool	Fixed::operator!=(Fixed const &a)
 {
-	return !(a == b);
+	return !(a.getRawBits() == getRawBits());
 }
 
-bool	operator<(Fixed const &a, Fixed const &b) 
+bool	Fixed::operator<(Fixed const &a) 
 {
-	return (a.getRawBits() < b.getRawBits());
+	return (getRawBits() < a.getRawBits());
 }
 
-bool	operator>(Fixed const &a, Fixed const &b) 
+bool	Fixed::operator>(Fixed const &a) 
 {
-	return (a.getRawBits() > b.getRawBits());
+	return (getRawBits() > a.getRawBits() );
 }
 
-bool	operator<=(Fixed const &a, Fixed const &b)
+bool	Fixed::operator<=(Fixed const &a)
 {
-	return (a.getRawBits() <= b.getRawBits());
+	return (getRawBits() <= a.getRawBits());
 }
-bool	operator>=(Fixed const &a, Fixed const &b)
+bool	Fixed::operator>=(Fixed const &a)
 {
-	return (a.getRawBits() >= b.getRawBits());
+	return (getRawBits() >= a.getRawBits());
 }
 
 //pre incrementation
@@ -142,7 +142,7 @@ Fixed &Fixed::min(Fixed &ref1, Fixed &ref2)
 
 const Fixed &Fixed::min(Fixed const &ref1, Fixed const &ref2)
 {
-	return (ref1 < ref2) ? ref1 : ref2;
+	return (&ref1 < &ref2) ? ref1 : ref2;
 }
 
 Fixed &Fixed::max(Fixed &ref1, Fixed &ref2)
@@ -152,5 +152,5 @@ Fixed &Fixed::max(Fixed &ref1, Fixed &ref2)
 
 const Fixed &Fixed::max(Fixed const &ref1, Fixed const &ref2)
 {
-	return (ref1 > ref2) ? ref1 : ref2;
+	return (&ref1 > &ref2) ? ref1 : ref2;
 }
