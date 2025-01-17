@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:00:40 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/11 16:23:20 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:33:22 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ ClapTrap::ClapTrap() : name("ClapTrap"), Hitpoints(10), Energypoints(10), Attack
 	std::cout << "claptrap default constructor has been called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string &name) : name(name), Hitpoints(10), Energypoints(10), Attackdamage(0)
+ClapTrap::ClapTrap(const std::string &newname) : name(newname), Hitpoints(10), Energypoints(10), Attackdamage(0)
 {
 	std::cout << "ClapTrap constructor has been called" << std::endl;
 }

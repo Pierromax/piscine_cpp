@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 15:37:47 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/16 14:00:37 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:56:00 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ Character::~Character()
             delete this->inventory[i];
             this->inventory[i] = NULL;
         }
-    for (int i = 0; i < floor_size; i++)
-        if (this->floor[i] != NULL)
-        {
+    for (int i = 0; i < get_floor_count(); i++)
             delete this->floor[i];
-            this->floor[i] = NULL;
-        }
     delete [] this->floor;
 }
 
@@ -99,14 +95,14 @@ void Character::unequip(int idx)
         {
             set_floor_size(get_floor_size() * 2);
             AMateria **new_floor = new AMateria*[get_floor_size()];
-            for (int i = 0; i < get_floor_count() - 1 ; i++)
+            for (int i = 0; i < get_floor_count(); i++)
                 new_floor[i] = floor[i];
             delete [] floor;
             this->floor = new_floor;
         }
-        floor[floor_count] = this->inventory[idx];
+        floor[get_floor_count()] = this->inventory[idx];
         this->inventory[idx] = NULL;
-        floor_count++;
+        set_floor_count(get_floor_count() + 1);
     }
 }
 

@@ -6,14 +6,14 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:08:34 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/11 19:30:40 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:16:00 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
-/*************************************** */
-/*		Constructor ans destructor		*/
+/****************************************/
+/*		Constructor and destructor		*/
 /****************************************/
 
 DiamondTrap::DiamondTrap() : ClapTrap(), FragTrap(), ScavTrap(), name("_clap_name")
@@ -34,7 +34,9 @@ DiamondTrap::DiamondTrap(const std::string &newname) : ClapTrap(newname), FragTr
 
 DiamondTrap::DiamondTrap(DiamondTrap &cpy) : ClapTrap(cpy), FragTrap(cpy), ScavTrap(cpy), name(cpy.name)
 {
-	*this = cpy;
+	this->Hitpoints = cpy.Hitpoints;
+	this->Attackdamage = cpy.Attackdamage;
+	this->Energypoints = cpy.Energypoints;
 	std::cout << "DiamondTrap copy constructor called" << std::endl;
 }
 
@@ -66,5 +68,10 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap &cpy)
 
 void	DiamondTrap::whoAmI(void)
 {
-	std::cout << "to be " << this->name << " or to be " << ClapTrap::name << " that is the question"<< std::endl;
+	std::cout << "to be " << this->name << " or to be " << ClapTrap::name << " that is the question" << std::endl;
+}
+
+void	DiamondTrap::attack(const std::string &target)
+{
+	ScavTrap::attack(target);
 }

@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:56:21 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/11 19:35:39 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:14:46 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ class DiamondTrap : public FragTrap, public ScavTrap
 		DiamondTrap(DiamondTrap &cpy);
 
 		DiamondTrap&	operator=(const DiamondTrap &cpy);
-		void			whoAmI(void);
-		
+		void	attack(const std::string &target);
+		void	whoAmI(void);
+
 		~DiamondTrap();
 };
 
