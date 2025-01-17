@@ -1,6 +1,6 @@
 # Variables
 CC = g++
-CFLAGS = -Wall -Wextra -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp ClapTrap.cpp
 OBJ = $(SRC:.cpp=.o)
 NAME = claptrap

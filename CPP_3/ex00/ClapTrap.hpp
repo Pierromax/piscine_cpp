@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:00:38 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/11 16:23:58 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:22:59 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ class ClapTrap
 {
 	private:
 		std::string name;
-		int	Energypoints;
 		int	Hitpoints;
+		int	Energypoints;
 		int	Attackdamage;
 	public:
 		ClapTrap();
