@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++11
 SRCS = main.cpp Bureaucrat.cpp
 OBJS = $(SRCS:.cpp=.o)
-TARGET = Bureaucrat
+TARGET = program
 
 # Rules
 all: $(TARGET)
