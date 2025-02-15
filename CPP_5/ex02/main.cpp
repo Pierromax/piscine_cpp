@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:51:11 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 18:44:45 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:59:31 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,4 @@ int main()
     } catch (const std::exception &e){
         std::cerr << e.what() << std::endl;
     }
-
 }
