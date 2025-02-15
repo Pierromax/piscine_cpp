@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 07:18:15 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:22 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:42:56 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void AForm::beSigned(const Bureaucrat& signer)
     this->is_signed = true;
 }
 
-void AForm::execute(Bureaucrat const &executor)
+void AForm::execute(Bureaucrat const &executor) const
 {
     if (this->is_signed == false)
         throw NotSignedException();
-    if (getGradeToExecute() > executor.getGrade())
+    if (getGradeToExecute() < executor.getGrade())
         throw GradeTooLowException();
 }
 

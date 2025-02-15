@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:17:08 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 15:28:22 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:42:50 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class AForm
         virtual int getGradeToSign() const;
         virtual int getGradeToExecute() const;
         virtual void beSigned(const Bureaucrat &signer);
-        virtual void execute(Bureaucrat const &executor);
+        virtual void execute(Bureaucrat const &executor) const;
 
         class GradeTooHighException : public std::exception {
             public:

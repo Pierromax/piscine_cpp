@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:47:58 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/12 09:48:13 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:42:51 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void Bureaucrat::decrementGrade()
 	this->grade++;
 }
 
-void        Bureaucrat::signForm(Form &to_sign)
+void        Bureaucrat::signForm(AForm &to_sign)
 {
     try{
         if (to_sign.getSigned() == 1)
@@ -93,7 +93,18 @@ void        Bureaucrat::signForm(Form &to_sign)
         std::cout << this->getName() << " signed " << to_sign.getName() << std::endl;
     } catch (std::exception &e){
         std::cerr << this->getName() << " couldn't signed " << to_sign.getName() << " because ";
-        throw (Form::GradeTooLowException());
+        throw (AForm::GradeTooLowException());
+    }
+}
+
+void       Bureaucrat::executeForm(AForm const &form) const
+{
+    try{
+        form.execute(*this);
+        std::cout << this->getName() << " executed " << form.getName() << std::endl;
+    } catch (std::exception &e){
+        std::cerr << this->getName() << " couldn't execute " << form.getName() << " because ";
+        throw (AForm::GradeTooLowException());
     }
 }
 

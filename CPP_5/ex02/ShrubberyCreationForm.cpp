@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:47 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 16:05:41 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:43:46 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery", SHRUBBERY_SI
     this->target = "default";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
 {
     this->target = target;
 }
@@ -87,13 +87,13 @@ static void CreateTree(const std::string &target)
     ofs.close();
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor)
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
     try{
         AForm::execute(executor);
         CreateTree(this->target);
     }catch (std::exception &e)
     {
-        std::cout << executor.getName() << "couldn't execute because" << e.what() << std::endl;
+        std::cout << "couldn't open because " <<  this->target <<  "because" <<e.what() << std::endl;
     }
 }
