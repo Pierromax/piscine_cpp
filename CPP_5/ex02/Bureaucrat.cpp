@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:47:58 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 14:48:15 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:48:13 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Grade too high !");
+	return ("Grade too high");
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Grade too Low !");
+	return ("Grade too Low");
 }
-
 
 /********************************************/
 /*       Constructor et destructor          */
 /********************************************/
+
+Bureaucrat::Bureaucrat() : name(""), grade(150) {}
 
 Bureaucrat::Bureaucrat(int grade) : name(""), grade(grade) 
 {
@@ -56,7 +57,7 @@ Bureaucrat::Bureaucrat(Bureaucrat &src) : name(src.name), grade(src.grade)
 
 Bureaucrat::~Bureaucrat() 
 {
-    std::cout << "a bas la bureauctratie (destructor called)" << std::endl;
+    //std::cout << "a bas la bureauctratie (destructor called)" << std::endl;
 }
 
 /********************************************/
@@ -77,6 +78,23 @@ void Bureaucrat::decrementGrade()
 		throw GradeTooLowException();
 	}
 	this->grade++;
+}
+
+void        Bureaucrat::signForm(Form &to_sign)
+{
+    try{
+        if (to_sign.getSigned() == 1)
+		{		
+			std::cout << this->getName() << " couldn't sign " << to_sign.getName()
+				<< " because it's already signed" << std::endl;
+			return ;
+		}
+        to_sign.beSigned(*this);
+        std::cout << this->getName() << " signed " << to_sign.getName() << std::endl;
+    } catch (std::exception &e){
+        std::cerr << this->getName() << " couldn't signed " << to_sign.getName() << " because ";
+        throw (Form::GradeTooLowException());
+    }
 }
 
 /********************************************/
