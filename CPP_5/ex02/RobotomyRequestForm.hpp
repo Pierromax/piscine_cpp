@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:44 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 19:08:42 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:31:30 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 #define ROBO_SIGN 72
 #define ROBO_EXEC 45
 
-class RobtomyRequestForm : public AForm
+class RobotomyRequestForm : public AForm
 {
     private :
         std::string target;
     public :
-        RobtomyRequestForm();
-        RobtomyRequestForm(std::string const &target);
-        RobtomyRequestForm(RobtomyRequestForm &cpy);
-        ~RobtomyRequestForm();
-        RobtomyRequestForm &operator=(RobtomyRequestForm &rhs);
+        RobotomyRequestForm();
+        RobotomyRequestForm(std::string const &target);
+        RobotomyRequestForm(RobotomyRequestForm &cpy);
+        ~RobotomyRequestForm();
+        RobotomyRequestForm &operator=(RobotomyRequestForm &rhs);
         void execute(Bureaucrat const & executor) const;
 };
 

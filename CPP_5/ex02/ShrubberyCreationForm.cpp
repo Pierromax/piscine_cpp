@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:47 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 18:57:46 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:36:31 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /*       Constructor et destructor          */
 /********************************************/
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBBERRY_EXEC)
 {
     this->target = "default";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBBERRY_EXEC)
 {
     this->target = target;
 }

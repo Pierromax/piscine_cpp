@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:53 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 18:42:57 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:36:26 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "AForm.hpp"
 #include <fstream>
 #define SHRUBBERY_SIGN 147
-#define SHRUBERRY_EXEC 137
+#define SHRUBBERRY_EXEC 137
 
 class ShrubberyCreationForm : public AForm
 {

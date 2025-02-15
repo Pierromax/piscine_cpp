@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:41 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 19:09:37 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:35:42 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /*       Constructor et destructor          */
 /********************************************/
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+RobotomyRequestForm::RobotomyRequestForm() : AForm("ROBOT", ROBO_SIGN, ROBO_EXEC)
 {
     this->target = "default";
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target) : AForm("ROBOT", ROBO_SIGN, ROBO_EXEC)
 {
     this->target = target;
 }

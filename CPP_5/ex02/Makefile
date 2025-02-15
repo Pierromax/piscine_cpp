@@ -1,9 +1,9 @@
 # Variables
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJS = $(SRCS:.cpp=.o)
-TARGET = program
+TARGET = exec_form
 
 # Rules
 all: $(TARGET)
