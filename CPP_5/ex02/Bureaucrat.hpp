@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:59:40 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 18:43:30 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/19 10:26:06 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Bureaucrat
         void        incrementGrade();
         void        decrementGrade();
         void        signForm(AForm &to_sign);
-        void	    executeForm( const AForm& form ) const;
+        void	    executeForm(const AForm& form) const;
 
         
         class GradeTooHighException : public std::exception {

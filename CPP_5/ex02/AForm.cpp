@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 07:18:15 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/17 16:16:01 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/19 10:24:49 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void AForm::beSigned(const Bureaucrat& signer)
     this->is_signed = true;
 }
 
-void AForm::execute(Bureaucrat const &executor)
+void AForm::execute(Bureaucrat const &executor) const
 {
     if (this->is_signed == false)
         throw NotSignedException();
@@ -96,12 +96,8 @@ void AForm::execute(Bureaucrat const &executor)
 
 AForm &AForm::operator=(AForm &rhs) 
 {
-    if (this != &rhs) {
-        this->name = rhs.name;
-        this->grade_to_execute = rhs.grade_to_execute;
-        this->grade_to_sign = rhs.grade_to_sign;
+    if (this != &rhs) 
         this->is_signed = rhs.is_signed;
-    }
     return *this;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:47 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 17:19:43 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:41:45 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /*       Constructor et destructor          */
 /********************************************/
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBBERRY_EXEC)
 {
     this->target = "default";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBERRY_EXEC)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : AForm("Shrubbery", SHRUBBERY_SIGN, SHRUBBERRY_EXEC)
 {
     this->target = target;
 }
@@ -46,7 +46,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &r
 
 static void CreateTree(const std::string &target)
 {
-    std::ofstream ofs(target + "_shrubbery");
+    std::ofstream ofs((target + "_shrubbery").c_str());
     if (!ofs)
     {
         std::cerr << "Error: Could not create file " << target + "_shrubbery" << std::endl;
@@ -62,7 +62,6 @@ static void CreateTree(const std::string &target)
     ofs << "⠀⠀⠀⠀⠀⠀⢰⣦⣶⣶⣤⣀⠀⠀⠀⠀⢹⣷⣶⣦⣤⡶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣦⠀⢹⣧⣦⣴⠆⢠⣦⣦⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n";
     ofs << "⠀⠀⠀⢀⣠⣶⡾⠃⠀⠀⠉⠟⠷⢶⣶⣶⡀⠀⣀⣤⣸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣀⣤⣠⣤⡶⣿⣳⠟⠁⣤⣾⠀⠀⠘⠷⠋⠀⣸⣇⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n";
     ofs << "⠀⢰⣿⠟⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠷⡼⠏⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠛⠀⠈⠘⠃⠉⠀⠀⠈⠛⠒⠋⠀⠀⠀⠀⠀⠀⠀⠈⠉⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀\n";
-    
     ofs << "⣰⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡄⢀⣴⡇⠀⢀⣠⣾⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⡇⢀⣀⡀⠀⠀⠀⠀⠀⠀\n";
     ofs << "⠋⣿⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⠀⠀⠀⢿⡽⣿⠿⣧⠷⣼⣧⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠋⢯⡆⠀⠀⠀⠀⠀⠀\n";
     ofs << "⠀⣾⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠋⠱⣿⣿⢶⠀⠀⢣⣿⡆⠈⡷⢷⡜⣷⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠇⠀⠀⠀⠀⠀⠀\n";
@@ -87,7 +86,7 @@ static void CreateTree(const std::string &target)
     ofs.close();
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor)
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
     try{
         AForm::execute(executor);

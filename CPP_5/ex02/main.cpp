@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:51:11 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 21:30:07 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/19 10:26:49 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main()
     }
     std::cout << std::endl << President << std::endl;
     try {
-        Bureaucrat b3("Roberto", 5);
+        Bureaucrat b3("Roberto", 10);
         b3.signForm(President);
         b3.executeForm(President);
     } catch (const std::exception & e) {
