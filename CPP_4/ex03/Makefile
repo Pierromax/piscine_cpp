@@ -1,6 +1,6 @@
 # Variables
 C = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++11 -g3
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 SRCS = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = materia
