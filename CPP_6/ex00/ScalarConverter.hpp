@@ -15,6 +15,14 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <iomanip>
+#include <cstdlib>
+#include <cctype>
+#include <climits>
+#include <cfloat>
+
+#define IMPOSSIBLE "char: impossible\nint: impossible\nfloat: imposible\ndouble: impossible"
 
 class ScalarConverter
 {
@@ -25,7 +33,7 @@ class ScalarConverter
         ~ScalarConverter();
 
     public:
-        void convert(std::string const &str);
+        static void convert(std::string const &str);
 };
 
 #endif
