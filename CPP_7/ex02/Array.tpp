@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:33:43 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/24 15:03:29 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:09:33 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ template <typename T>
 T &Array<T>::operator[](unsigned int n)
 {
     if (n < 0 || n >= this->_size)
-        throw(std::exception());
+        throw(std::out_of_range("index out of bounds"));
     return (array[n]);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:22:22 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/24 15:04:08 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:09:56 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int main()
     try {
         std::cout << b[b.size() + 1] << std::endl;
     }catch(std::exception &e){
-        std::cout << "index out of bound" << std::endl;
+        std::cout << e.what() << std::endl;
     }
     try {
         std::cout << a[0] << std::endl;
     }catch(std::exception &e){
-        std::cout << "index out of bound" << std::endl;
+        std::cout << e.what() << std::endl;
     }
     
     return (0);
