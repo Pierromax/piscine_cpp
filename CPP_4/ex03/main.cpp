@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:52:20 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/16 17:52:38 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:23:51 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ int main()
 
     ICharacter* bob = new Character("bob");
 
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < 20; i++)
     {
         int j = i % 4 ;
         me->unequip(j);
-        tmp = src->createMateria("ice");
+        if (j % 2 == 1)
+            tmp = src->createMateria("ice");
+        if (j % 2 == 0)
+            tmp = src->createMateria("cure");
         me->equip(tmp);
         me->use(j, *bob);
     }

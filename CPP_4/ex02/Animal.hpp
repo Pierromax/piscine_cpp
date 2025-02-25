@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:41:23 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/07 20:48:42 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:59:42 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Animal
 		Animal(Animal &cpy);
 		Animal &operator=(Animal &type);
 		std::string		getType() const;
-		virtual void	makeSound() const =0;
+		virtual void	makeSound() const = 0;
 		virtual ~Animal();
 };
 

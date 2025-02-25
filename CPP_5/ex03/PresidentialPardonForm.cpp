@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:39 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 21:36:52 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:34:51 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /*       Constructor et destructor          */
 /********************************************/
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm("Presidential_Pardon", PPF_SIGN, PPF_EXEC)
+PresidentialPardonForm::PresidentialPardonForm() : AForm("Presidential Pardon", PPF_SIGN, PPF_EXEC)
 {
     this->target = "default";
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string const &target) : AForm("Presidential_Pardon", PPF_SIGN, PPF_EXEC)
+PresidentialPardonForm::PresidentialPardonForm(std::string const &target) : AForm("Presidential Pardon", PPF_SIGN, PPF_EXEC)
 {
     this->target = target;
 }

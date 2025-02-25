@@ -1,10 +1,10 @@
-CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -std=c++98
+CXX = c++
+CXXFLAGS = -Wall -Werror -Wextra -g3 -std=c++98
 
-SRCS = main.cpp ScalarConverter.cpp
+SRCS = main.cpp
 OBJ_DIR = .obj
 OBJS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
-NAME = convert
+NAME = easyfind
 
 all : $(NAME)
 

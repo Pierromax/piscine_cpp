@@ -1,56 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:43:53 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/27 13:42:42 by ple-guya         ###   ########.fr       */
+/*   Created: 2025/01/27 13:41:51 by ple-guya          #+#    #+#             */
+/*   Updated: 2025/01/27 13:46:01 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "WrongAnimal.hpp"
 #include <iostream>
 
 /******************************/
 /*  Constructor & destrutor   */
 /******************************/
 
-Animal::Animal() : type("Default")
+WrongAnimal::WrongAnimal() : type("Default")
 {
-	std::cout << "default Animal constructor called" << std::endl;
+	std::cout << "default WrongAnimal constructor called" << std::endl;
 }
 
-Animal::Animal(const std::string &type) : type(type)
+WrongAnimal::WrongAnimal(const std::string &type) : type(type)
 {
-	std::cout << "Animal constructor called" << std::endl;
+	std::cout << "WrongAnimal constructor called" << std::endl;
 }
 
-Animal::Animal(Animal &cpy) : type(cpy.type)
+WrongAnimal::WrongAnimal(WrongAnimal &cpy) : type(cpy.type)
 {
-	std::cout << "Animal copy constructor called" << std::endl;
+	std::cout << "WrongAnimal copy constructor called" << std::endl;
 }
 
-Animal::~Animal()
+WrongAnimal::~WrongAnimal()
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << "WrongAnimal destructor called" << std::endl;
 }
 
 /******************************/
 /*      member functions      */
 /******************************/
 
-void	Animal::makeSound() const
+void	WrongAnimal::makeSound() const
 {
-	std::cout << "skibidi toilet" << std::endl;
+	std::cout << "j'aime les pizza a l'ananas" << std::endl;
 }
 
 /******************************/
 /*           getter           */
 /******************************/
 
-std::string Animal::getType() const
+std::string WrongAnimal::getType() const
 {
 	return type;
 }
@@ -59,9 +59,9 @@ std::string Animal::getType() const
 /*    surcharge d'opeateur    */
 /******************************/
 
-Animal	&Animal::operator=(Animal &rhs)
+WrongAnimal	&WrongAnimal::operator=(WrongAnimal &animal)
 {
-	if (this != &rhs)
-		this->type = rhs.type;
+	if (this != &animal)
+		this->type = animal.type;
 	return (*this);
 }

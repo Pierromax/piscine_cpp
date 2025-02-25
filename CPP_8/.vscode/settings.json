@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "ostream": "cpp",
+        "optional": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -17,6 +19,7 @@
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
+        "list": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
@@ -26,7 +29,6 @@
         "memory": "cpp",
         "memory_resource": "cpp",
         "numeric": "cpp",
-        "optional": "cpp",
         "random": "cpp",
         "string": "cpp",
         "string_view": "cpp",
@@ -41,7 +43,6 @@
         "limits": "cpp",
         "new": "cpp",
         "numbers": "cpp",
-        "ostream": "cpp",
         "ranges": "cpp",
         "span": "cpp",
         "stdexcept": "cpp",

@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 22:41:30 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/17 03:47:24 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:18:23 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ Dog::Dog(std::string &type) : Animal(type)
 
 Dog::Dog(Dog &cpy) : Animal(cpy.type)
 {
-	this->dogBrain = cpy.dogBrain;
+	this->dogBrain = new Brain(*cpy.dogBrain);
 	std::cout << "Dog copy constructor called" << std::endl;
 }
 
 Dog::~Dog()
 {
-	delete [] dogBrain;
+	if (this->dogBrain)
+		delete dogBrain;
 	std::cout << "Dog destructor called" << std::endl;
 }
 
@@ -48,7 +49,11 @@ Dog::~Dog()
 Dog	&Dog::operator=(Dog &cpy)
 {
 	if (this != &cpy)
+	{
 		this->type = cpy.type;
+		delete this->dogBrain;
+		this->dogBrain = new Brain(*cpy.dogBrain);
+	}
 	return (*this);
 }
 

@@ -1,66 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 22:41:27 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/27 14:18:56 by ple-guya         ###   ########.fr       */
+/*   Created: 2025/01/27 13:40:18 by ple-guya          #+#    #+#             */
+/*   Updated: 2025/01/27 13:55:09 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 #include <iostream>
 
 /******************************/
 /*  Constructor & destrutor   */
 /******************************/
 
-Cat::Cat() : Animal("Cat")
+WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
-	this->catBrain = new Brain();
-	std::cout << "default Cat constructor called" << std::endl;
+	std::cout << "default WrongCat constructor called" << std::endl;
 }
 
-Cat::Cat(std::string &type) : Animal(type)
+WrongCat::WrongCat(std::string &type) : WrongAnimal(type)
 {
-	this->catBrain = new Brain();
-	std::cout << "Cat constructor called" << std::endl;
+	std::cout << "WrongCat constructor called" << std::endl;
 }
 
-Cat::Cat(Cat &cpy) : Animal(cpy.type)
+WrongCat::WrongCat(WrongCat &cpy) : WrongAnimal(cpy.type)
 {
-	this->catBrain = new Brain(*cpy.catBrain);
-	std::cout << "Cat copy constructor called" << std::endl;
+	std::cout << "WrongCat copy constructor called" << std::endl;
 }
 
-Cat::~Cat()
+WrongCat::~WrongCat()
 {
-	if (this->catBrain)
-		delete this->catBrain;
-	std::cout << "Cat destructor called" << std::endl;
+	std::cout << "WrongCat destructor called" << std::endl;
 }
 
 /******************************/
 /*    surcharge d'opeateur    */
 /******************************/
 
-Cat	&Cat::operator=(Cat &cpy)
+WrongCat	&WrongCat::operator=(WrongCat &cpy)
 {
 	if (this != &cpy)
-	{
 		this->type = cpy.type;
-		delete this->catBrain;
-		this->catBrain = cpy.catBrain;
-	}
 	return (*this);
 }
 /******************************/
 /*      member function       */
 /******************************/
 
-void	Cat::makeSound() const
+void	WrongCat::makeSound() const
 {
-	std::cout << "Miaou Miaou (les jours de l'humaniter sont compter)" << std::endl;
+	std::cout << "miaou motherfucker" << std::endl;
 }

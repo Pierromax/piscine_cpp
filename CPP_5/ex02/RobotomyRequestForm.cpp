@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:21:41 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/02/15 21:35:42 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:34:07 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 /*       Constructor et destructor          */
 /********************************************/
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("ROBOT", ROBO_SIGN, ROBO_EXEC)
+RobotomyRequestForm::RobotomyRequestForm() : AForm("Robotomy Request", ROBO_SIGN, ROBO_EXEC)
 {
     this->target = "default";
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string const &target) : AForm("ROBOT", ROBO_SIGN, ROBO_EXEC)
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target) : AForm("Robotomy Request", ROBO_SIGN, ROBO_EXEC)
 {
     this->target = target;
 }
@@ -48,6 +48,7 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
     AForm::execute(executor);
     srand(time(NULL));
+    std::cout << "*drilling Noise*" << std::endl;
     if (rand() % 2)
         std::cout << this->target << " has been robotomized successfully" << std::endl;
     else
