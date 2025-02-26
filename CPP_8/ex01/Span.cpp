@@ -42,6 +42,14 @@ void Span::addNumber(int n)
         throw std::out_of_range("Span is full");
 }
 
+template <typename Iterator>
+void Span::addNumbers(Iterator begin, Iterator end) {
+    if (std::distance(begin, end) > maxSize - numbers.size()) {
+        throw std::out_of_range("Not enough space to add all numbers");
+    }
+    numbers.insert(numbers.end(), begin, end);
+}
+
 int Span::shortestSpan() const
 {
     if (vec.size() <= 1)

@@ -30,6 +30,8 @@ class Span
         Span & operator=(Span const & rhs);
         ~Span();
 
+        template <typename Iterator>
+        void addNumbers(Iterator begin, Iterator end);
         void addNumber(int n);
         int shortestSpan() const;
         int longestSpan() const;

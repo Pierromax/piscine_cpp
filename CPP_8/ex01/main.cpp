@@ -36,8 +36,10 @@ int main()
     }
 
     Span sp2 = Span(10000);
+    std::vector<int> vec(10000);
     for (int i = 0; i < 10000; i++)
-        sp2.addNumber(i);
+        vec[i] = i;
+    sp2.addNumbers(vec.begin(), vec.end());
     std::cout << "Shortest span: " << sp2.shortestSpan() << std::endl;
     std::cout << "Longest span: " << sp2.longestSpan() << std::endl;
 
