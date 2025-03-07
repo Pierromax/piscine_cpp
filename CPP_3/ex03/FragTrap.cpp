@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:30:14 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/21 23:54:32 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:52:24 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ FragTrap::FragTrap(const std::string &newname) : ClapTrap(newname)
 	std::cout << "FragTrap constructor called fot" << newname << std::endl;
 }
 
-FragTrap::FragTrap(FragTrap &cpy) : ClapTrap(cpy)
+FragTrap::FragTrap( const FragTrap &cpy) : ClapTrap(cpy)
 {
 	this->name = cpy.name;
 	this->Hitpoints = cpy.Hitpoints;

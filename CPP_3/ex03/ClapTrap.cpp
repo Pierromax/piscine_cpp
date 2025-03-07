@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:00:40 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/01/17 17:25:57 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:41:16 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ ClapTrap::~ClapTrap()
 	std::cout << "claptrap destructor has been called" << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap &clap) :
+ClapTrap::ClapTrap(ClapTrap const &clap) :
 name(clap.name), Hitpoints(clap.Energypoints), Energypoints(clap.Energypoints), Attackdamage(clap.Attackdamage)
 {
 	std::cout << "claptrap copy constructor has been called" << std::endl;

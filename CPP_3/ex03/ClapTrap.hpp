@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:00:38 by ple-guya          #+#    #+#             */
-/*   Updated: 2024/12/11 16:17:18 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:40:53 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class ClapTrap
 	public:
 		ClapTrap();
 		ClapTrap(const std::string &name);
-		ClapTrap(ClapTrap &clap);
+		ClapTrap(const ClapTrap &clap);
 
 		ClapTrap&	operator=(const ClapTrap &orig);
 		std::string	getName(void) const;
