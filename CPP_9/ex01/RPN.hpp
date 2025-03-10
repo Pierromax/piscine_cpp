@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:23 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/07 18:52:17 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/10 13:12:14 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #define RPN_HPP
 
 #include <iostream>
-#include <list>
-#include <vector>
-#include <fstream>
+#include <stack>
 #include <algorithm>
 #include <ctime>
 #include <sstream>
@@ -24,16 +22,19 @@
 class RPN
 {
     private :
-        std::vector<std::pair<std::string, float> > date_value;
+        std::stack<double> _stack;
+        bool isValidNumber(std::string &nb);
+        void makeOperation(std::string &op);
         
     public :
         RPN();
-        RPN(std::string const &filename);
+        RPN(std::string const &arg);
         RPN(RPN const &original);
         RPN &operator=(RPN const &rhs);
         ~RPN();
         
-        
+        double getResult() const;
+        void calculate(std::string const &arg);
 };
 
 #endif
