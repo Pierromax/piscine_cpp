@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:26 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/14 18:43:54 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:50:08 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void RPN::calculate(std::string const &arg)
             throw (std::invalid_argument("invalid expression"));
         RPN::makeOperation(token);
     }
+    if (_stack.size() != 1)
+        throw (std::invalid_argument("invalid expression"));
 }
 
 double RPN::getResult() const
