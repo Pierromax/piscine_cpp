@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:29 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/09 22:21:16 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:43:59 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 int main(int ac, char **av)
 {
     if (ac != 2)
-        return std::cout << "Usage: ./RPN 'expression'" << std::endl , 1;
-        
-    std::string arg = av[1];
+        return (std::cerr << "Usage : ./RPN 'expression'" << std::endl, 1);
+
+    std::string const arg(av[1]);
     
-    try{
+    try {
         RPN rpn(arg);
-        rpn.print_result();
+        std::cout << rpn.getResult() << std::endl;
     }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-        return 1;
-    }
-    return 0;
+    catch(std::exception &e){
+        std::cerr << e.what()<< std::endl;
+    } 
 }

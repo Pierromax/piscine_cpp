@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:33:56 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/07 18:30:19 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/12 18:42:04 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,22 @@ static bool is_empty_line(std::string line)
 /* Constructor & Destructor */
 /****************************/
 
-BitcoinExchange::BitcoinExchange() {}
+BitcoinExchange::BitcoinExchange() 
+{
+    BitcoinExchange::loadDataBase("data.csv");
+}
 
 BitcoinExchange::BitcoinExchange(std::string const &filename)
 {
-    std::ifstream infile(filename.c_str());
-    std::string line;
-    std::string date;
-    float value;
-
-    if (!infile.is_open())
-        throw (std::ifstream::failure("Could not open file"));
-    while (std::getline(infile, line))
-    {
-        if (line == "date | value")
-        {
-            date = line, value = -1;
-            continue;
-        }
-        size_t pos = line.find("|");
-        if (is_empty_line(line))
-            continue;
-        date = line.substr(0, pos);
-        std::string str_value = line.substr(pos + 1);
-        std::stringstream(str_value) >> value;
-        try {
-            is_valid_param(date, value, line, pos);
-        } catch (std::exception &e) {
-            date = e.what(), value = -1;
-        }
-        date_value.push_back(std::pair<std::string, float>(date, value));
-    }
-    infile.close();
+   BitcoinExchange::loadDataBase(filename);
 }
 
-BitcoinExchange::BitcoinExchange(BitcoinExchange const &cpy) : date_value(cpy.date_value) {}
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &cpy) : dataBase(cpy.dataBase) {}
 
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 {
     if (&rhs != this)
-        this->date_value = rhs.date_value;
+        this->dataBase = rhs.dataBase;
     return *this;
 }
 
@@ -75,71 +51,108 @@ BitcoinExchange::~BitcoinExchange() {}
 /*     Member Functions     */
 /****************************/
 
-void BitcoinExchange::run()
+void    BitcoinExchange::loadDataBase(std::string const &filename)
 {
-    std::vector<std::pair<std::string, float> >::iterator it = date_value.begin();
-    std::tm input = {};
-    for (;it != date_value.end(); it++)
+    std::ifstream   db_file(filename.c_str());
+    if (!db_file.is_open())
+        throw (std::ifstream::failure("can't find database"));
+    std::string     line;
+    std::string     str_date;
+    std::string     str_value;
+    float           value;
+    size_t          pos;
+    time_t          date;
+    std::tm         tm;
+    bool            header = false;  
+    
+    std::getline(db_file, line);
+    if (line == "date,exchange_rate")
+        header = true;
+    if (header == false)
+        throw (std::invalid_argument("missing database Header"));
+    while(std::getline(db_file, line))
     {
-        
-        if (it->second == -1)
-            std::cout << it->first << std::endl;
-        else if (strptime(it->first.c_str(), "%Y-%m-%d", &input) != NULL)
+        pos = line.find(",");
+        if (pos == std::string::npos)
+            throw (std::invalid_argument("database not valid"));
+        str_date = line.substr(0,pos);
+        str_value = line.substr(pos+1);
+        if (strptime(str_date.c_str(), "%Y-%m-%d", &tm) == NULL)
+            throw (std::invalid_argument("database not valid"));
+        date = mktime(&tm);
+        std::istringstream(str_value) >> value;
+        dataBase[date] = value;
+    }
+    db_file.close();
+}
+
+void BitcoinExchange::run(std::string const &inputFile)
+{
+    std::ifstream   infile(inputFile.c_str());
+    if (!infile.is_open())
+        throw (std::ifstream::failure("input file: can't find or don't exist"));
+    std::string     str_date;
+    std::string     line;
+    std::string     str_value;
+    size_t          pos;
+    float           value;
+    time_t          date;
+    float           rate;
+    bool            header = false;  
+    
+    std::getline(infile, line);
+    if (line == "date | value")
+        header = true;
+    if (header == false)
+        throw (std::invalid_argument("missing input file Header"));
+    else
+        std::cout << line << std::endl;
+    while (std::getline(infile, line))
+    {
+        if (is_empty_line(line))
+            continue;
+        pos = line.find("|");
+        str_date = line.substr(0, pos);
+        str_value = line.substr(pos + 1);
+        std::stringstream(str_value) >> value;
+        std::tm tm = {};
+        if (strptime(str_date.c_str(), "%Y-%m-%d", &tm) != NULL && pos != std::string::npos)
         {
-            time_t date = mktime(&input);
             try {
-                float rate = FindDB(date);
-                std::cout << it->first << " => " << it->second << " = " << it->second * rate << std::endl;
-            } catch (std::exception &e){
-                throw(e);
+                date = mktime(&tm);
+                is_valid_value(value);
+                rate = BitcoinExchange::FindDB(date);
+                std::cout << str_date << " => " << value << " = " << value * rate << std::endl;
+            } catch(std::exception &e) {
+                std::cout << e.what() << std::endl;
             }
         }
+        else
+            std::cout << "Error: bad input => " << line << std::endl;
     }
 }
 
 float  BitcoinExchange::FindDB(time_t date)
 {
-    std::ifstream db_file("data.csv");
-    if (!db_file.is_open())
-        throw (std::ifstream::failure("can't find database"));
-    std::string line;
-    float rate;
-    float closest_rate = 0;
-    time_t db_time;
-
-    while(std::getline(db_file, line))
+    std::map<time_t, float>::iterator it = dataBase.begin();
+    float  closest_rate = 0;
+    
+    for (; it != dataBase.end(); it++)
     {
-        size_t pos = line.find(",");
-        std::string db_date = line.substr(0, pos);
-        std::string str_rate = line.substr(pos + 1);
-        std::tm  db_tm = {};
-        if (strptime(db_date.c_str(), "%Y-%m-%d", &db_tm) != NULL)
-        {
-            db_time = mktime(&db_tm);
-            std::stringstream (str_rate) >> rate;
-            if (db_time == date)
-                return (db_file.close(), rate);
-            if (db_time > date)
-            {
-                std::cout << closest_rate << std::endl;
-                return (db_file.close(),  closest_rate);
-            }
-            closest_rate = rate;
-        } 
+        if (it->first == date)
+            return (it->second);
+        if (it->first > date)
+            return (closest_rate);
+        closest_rate = it->second;
     }
-    db_file.close();
-    throw std::invalid_argument("Error: no valid exchange rate found in database");
+    throw std::runtime_error("Error: no valid exchange rate found in database");
 }
 
-void BitcoinExchange::is_valid_param(std::string date, float value, std::string line, size_t pos)
+void        BitcoinExchange::is_valid_value(float value)
 {
-    if (std::string::npos == pos)
-        throw(std::invalid_argument("Error: bad input => " + line));
     if (value < 0)
-        throw (std::out_of_range("Error: not a positive number"));
+        throw (std::invalid_argument("Error => Not a positive number"));
     if (value > 1000)
-        throw (std::out_of_range("Error: number too large"));
-    std::tm tm;
-    if (strptime(date.c_str(), "%Y-%m-%d", &tm) == NULL)
-        throw(std::invalid_argument("Error: bad input => " + line));
+        throw (std::invalid_argument("Error => number too large"));
 }
+

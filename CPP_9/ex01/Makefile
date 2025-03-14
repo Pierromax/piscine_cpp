@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Werror -Wextra -g3 -std=c++98
 OBJS_DIR = .obj
 SRCS = main.cpp RPN.cpp
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
-NAME = btc
+NAME = RPN
 
 all : $(NAME)
 
