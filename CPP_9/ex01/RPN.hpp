@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:23 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/10 13:12:14 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:48:38 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <iostream>
 #include <stack>
 #include <algorithm>
-#include <ctime>
 #include <sstream>
 
 class RPN
