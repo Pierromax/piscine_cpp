@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:33:58 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/12 18:31:42 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:33:26 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class BitcoinExchange
     private :
         std::map<time_t, float> dataBase;
         float       FindDB(time_t date);
-        void        is_valid_value(float value);
+        void        is_valid_value(float *value, std::string str_value);
         void        loadDataBase(std::string const &filename);
         
     public :

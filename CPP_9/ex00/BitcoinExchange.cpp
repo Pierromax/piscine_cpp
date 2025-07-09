@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:33:56 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/12 18:42:04 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:42:02 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void    BitcoinExchange::loadDataBase(std::string const &filename)
     db_file.close();
 }
 
-void BitcoinExchange::run(std::string const &inputFile)
+void    BitcoinExchange::run(std::string const &inputFile)
 {
     std::ifstream   infile(inputFile.c_str());
     if (!infile.is_open())
@@ -99,7 +99,7 @@ void BitcoinExchange::run(std::string const &inputFile)
     time_t          date;
     float           rate;
     bool            header = false;  
-    
+
     std::getline(infile, line);
     if (line == "date | value")
         header = true;
@@ -112,15 +112,14 @@ void BitcoinExchange::run(std::string const &inputFile)
         if (is_empty_line(line))
             continue;
         pos = line.find("|");
-        str_date = line.substr(0, pos);
-        str_value = line.substr(pos + 1);
-        std::stringstream(str_value) >> value;
         std::tm tm = {};
-        if (strptime(str_date.c_str(), "%Y-%m-%d", &tm) != NULL && pos != std::string::npos)
+        str_date = line.substr(0, pos);
+        if (pos != std::string::npos && strptime(str_date.c_str(), "%Y-%m-%d", &tm) != NULL)
         {
+            str_value = line.substr(pos + 1);
+            date = mktime(&tm);
             try {
-                date = mktime(&tm);
-                is_valid_value(value);
+                is_valid_value(&value, str_value);
                 rate = BitcoinExchange::FindDB(date);
                 std::cout << str_date << " => " << value << " = " << value * rate << std::endl;
             } catch(std::exception &e) {
@@ -132,7 +131,7 @@ void BitcoinExchange::run(std::string const &inputFile)
     }
 }
 
-float  BitcoinExchange::FindDB(time_t date)
+float   BitcoinExchange::FindDB(time_t date)
 {
     std::map<time_t, float>::iterator it = dataBase.begin();
     float  closest_rate = 0;
@@ -148,11 +147,14 @@ float  BitcoinExchange::FindDB(time_t date)
     throw std::runtime_error("Error: no valid exchange rate found in database");
 }
 
-void        BitcoinExchange::is_valid_value(float value)
+void    BitcoinExchange::is_valid_value(float *value, std::string str_value)
 {
-    if (value < 0)
-        throw (std::invalid_argument("Error => Not a positive number"));
-    if (value > 1000)
-        throw (std::invalid_argument("Error => number too large"));
+    std::istringstream ss(str_value);
+        
+    if (!(ss >> *value))
+        throw std::invalid_argument("Error => not a number");
+    if (*value < 0)
+        throw std::invalid_argument("Error => not a positive number.");
+    if (*value > 1000)
+        throw std::invalid_argument("Error => too large a number.");
 }
-

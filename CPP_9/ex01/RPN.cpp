@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:26 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/10 13:16:17 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:04:25 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ RPN &RPN::operator=(RPN const &rhs)
 {
     if (&rhs != this)
         this->_stack = rhs._stack;
-    return (*this);
-        
+    return (*this);     
 }
 
 RPN::~RPN(){}
