@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:23 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/07/09 17:43:15 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:50:45 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ class PmergeMe
         int       step;
 
         void    sort(Container &c);
-        void    insertion(Container &c, Container &main, Container &pend);
+        void    insertion(Container &main, Container &pend);
         void    initChain(Container &c, Container &main, Container &pend);
         void    makePair(Container &c);
         int     getJacob(int index);
         size_t  binarySearch(Container &main, int element);
+        size_t  binarySearchGroup(Container &main, int element);
+
 
     public :
         PmergeMe();

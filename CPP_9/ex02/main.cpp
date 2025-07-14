@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:29 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/07/08 16:06:13 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/14 12:33:15 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int main(int ac, char **av)
         PmergeMe<VectorInt> vec(&av[1]);
         vec.FordJohnson();
 
-        std::cout << "data ";
+        std::cout << "data   : ";
         vec.printData();
-        std::cout << "sorted ";
+        std::cout << "sorted : ";
         vec.printSorted();
         
     }
