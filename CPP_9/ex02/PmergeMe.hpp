@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:23 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/07/14 15:50:45 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:58:57 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,12 @@ class PmergeMe
         Container data;
         Container sorted;
         int       level;
-        int       step;
 
-        void    sort(Container &c);
-        void    insertion(Container &main, Container &pend);
-        void    initChain(Container &c, Container &main, Container &pend);
-        void    makePair(Container &c);
-        int     getJacob(int index);
-        size_t  binarySearch(Container &main, int element);
-        size_t  binarySearchGroup(Container &main, int element);
-
+        void      sort();
+        void      insertion(Container &main, Container &pend, int step);
+        void      initChain(Container &main, Container &pend, int step);
+        void      makePair(int step);
+        int       getJacob(int index);
 
     public :
         PmergeMe();
@@ -49,10 +45,10 @@ class PmergeMe
         PmergeMe &operator=(PmergeMe const &rhs);
         ~PmergeMe();
 
-        void    printPair(Container &c);
-        void    printData();
-        void    printSorted();
-        void    FordJohnson();
+        void      printPair(Container &c, int step);
+        void      printData();
+        void      printSorted();
+        void      FordJohnson();
 };
 
 #include "PmergeMe.cpp"

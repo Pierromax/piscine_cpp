@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:26 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/07/14 15:51:04 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:02:13 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ template <class Container>
 PmergeMe<Container>::PmergeMe() {}
 
 template <class Container>
-PmergeMe<Container>::PmergeMe(char **liste) : level(0), step(0)
+PmergeMe<Container>::PmergeMe(char **liste) : level(0)
 {
     for (size_t i = 0; liste[i] ; i++)
     {
@@ -64,7 +64,7 @@ void PmergeMe<Container>::printSorted()
 }
 
 template <class Container>
-void PmergeMe<Container>::printPair(Container &c)
+void PmergeMe<Container>::printPair(Container &c, int step)
 {
     // unsigned long pair_len = step * 2;
     unsigned long paired_elements = c.size() / step * step;
@@ -101,6 +101,154 @@ int PmergeMe<Container>::getJacob(int index)
 }
 
 template <class Container>
+void PmergeMe<Container>::makePair(int step)
+{
+    typename Container::iterator it;
+
+    std::cout << "=========== FOR LEVEL " << level << "===========" << std::endl;
+
+    std::cout << "before swap : ";
+    printPair(sorted, step);
+    for (it = sorted.begin() + step - 1; it + step < sorted.end(); it += step * 2) 
+    {
+        if (*(it + step) < *it) 
+            std::swap_ranges(it + 1 - step, it + 1, it + 1);
+    }
+    level++;
+    std::cout << "ater swap : ";
+    printPair(sorted, step);
+}
+
+template <class Container>
+void PmergeMe<Container>::initChain(Container &main, Container &pend, int step)
+{
+	typename Container::iterator	res_it, pend_it, sorted_it;
+	typename Container::iterator	d_lim, h_lim, pos; 
+
+	std::copy(sorted.begin(), sorted.begin() + 2 * step, main.begin());
+	sorted_it = sorted.begin() + 2 * step;
+	res_it = main.begin() + 2 * step;
+	pend_it = pend.begin();
+	while (sorted_it != sorted.end()) 
+    {
+		if (sorted_it + step > sorted.end())
+			break ;
+		std::copy(sorted_it, sorted_it + step, pend_it);
+		pend_it += step;
+		sorted_it += step;
+		if (sorted_it + step > sorted.end())
+			break ;
+		std::copy(sorted_it, sorted_it + step, res_it);
+		res_it += step;
+		sorted_it += step;
+	}
+    main.resize(main.size() - pend.size());
+}
+
+template <class Container>
+void PmergeMe<Container>::insertion(Container &main, Container &pend, int step)
+{
+    // typename Container::iterator    main_it, pend_it, pos;
+    // int                             jacob_idx = 1, pendGroup = pend.size() / step;
+    // std::vector<bool>               inserted(pendGroup, false);
+    // int							    res_len = step * (std::floor((sorted.size()/ (2.0 * step)) - 1) + 2);
+    
+    // main_it = main.begin();
+    // pend_it = pend.begin();
+    int pendGroup = pend.size() / step;
+    std::vector<bool> inserted(pendGroup, false);
+
+    int jacob_idx = 1;
+    while (getJacob(jacob_idx) <= pendGroup) {
+        int current_jacob = getJacob(jacob_idx);
+        int previous_jacob = getJacob(jacob_idx - 1);
+
+        for (int i = std::min(current_jacob - 1, pendGroup - 1); i >= previous_jacob; i--) {
+            if (!inserted[i]) 
+            {
+                Container mainGroupLasts;
+                int mainGroupCount = main.size() / step;
+                for (int g = 0; g < mainGroupCount; ++g)
+                    mainGroupLasts.push_back(*(main.begin() + (g + 1) * step - 1));
+                typename Container::value_type value = *(pend.begin() + i * step + step - 1);
+                typename Container::iterator groupPos = std::lower_bound(mainGroupLasts.begin(), mainGroupLasts.end(), value);
+                int insertIdx = std::distance(mainGroupLasts.begin(), groupPos);
+                typename Container::iterator insert_pos = main.begin() + insertIdx * step;
+                main.insert(insert_pos, pend.begin() + i * step, pend.begin() + (i + 1) * step);
+                inserted[i] = true;
+            }
+        }
+        jacob_idx++;
+    }
+
+    for (int i = pendGroup - 1; i >= 0; i--) {
+        if (!inserted[i]) {
+            std::vector<typename Container::value_type> mainGroupLasts;
+            int mainGroupCount = main.size() / step;
+            for (int g = 0; g < mainGroupCount; ++g)
+                mainGroupLasts.push_back(*(main.begin() + (g + 1) * step - 1));
+
+             typename Container::value_type value = *(pend.begin() + i * step + step - 1);
+            typename Container::iterator groupPos = std::lower_bound(mainGroupLasts.begin(), mainGroupLasts.end(), value);
+
+            int insertIdx = std::distance(mainGroupLasts.begin(), groupPos);
+            typename Container::iterator insert_pos = main.begin() + insertIdx * step;
+
+            main.insert(insert_pos, pend.begin() + i * step, pend.begin() + (i + 1) * step);
+        }
+    }
+
+    // Insérer les éléments restants (non groupés)
+    int rest = pend.size() % step;
+    if (rest) {
+        typename Container::iterator it = pend.end() - rest;
+        for (; it != pend.end(); ++it) {
+            typename Container::iterator pos = std::lower_bound(main.begin(), main.end(), *it);
+            main.insert(pos, *it);
+        }
+    }
+}
+
+
+template <class Container>
+void PmergeMe<Container>::sort()
+{   
+    if (sorted.size() / (1 << level) < 2) 
+        return;
+
+    int step = 1 << level;
+    
+    makePair(step);
+
+    sort();
+    		
+	int						res_len = step * (std::floor((sorted.size()/ (2.0 * step)) - 1) + 2);
+	Container				main(sorted.size());
+    Container               pend(((sorted.size() - res_len) / step) * step);
+
+    if (pend.size() == 0)
+        return;
+        
+    initChain(main, pend, step);
+    std::cout << "=========== INSERTION PART ===========" << std::endl << "---- for step " << step << "----" << std::endl;
+    std::cout << "--- before insertion -----" << std::endl;
+    std::cout << "main : ";
+    printPair(main, step);
+    std::cout << "pend : ";
+    printPair(pend, step);
+
+    insertion(main, pend, step);
+
+    std::cout << "--- after insertion -----" << std::endl;
+    std::cout << "main : ";
+    printPair(main, step);
+
+    sorted = main;
+
+	return ;
+}
+
+template <class Container>
 void PmergeMe<Container>::FordJohnson()
 {
     if (data.size() <= 1)
@@ -108,185 +256,8 @@ void PmergeMe<Container>::FordJohnson()
         
     if (data.end() == std::adjacent_find(data.begin(), data.end(), std::greater<int>()))
         throw(std::invalid_argument("list already sorted"));
+        
     sorted = data;
-    sort(sorted);
-}
-
-template <class Container>
-size_t PmergeMe<Container>::binarySearchGroup(Container &main, int element)
-{
-    int left = 0;
-    int right = main.size() / step;
     
-    while (left < right) {
-        int mid = (left + right) / 2;
-        
-        // Comparer avec le DERNIER élément du groupe mid
-        int mid_element = main[mid * step + step - 1];
-        
-        if (mid_element < element) {
-            left = mid + 1;
-        } else {
-            right = mid;
-        }
-    }
-    
-    // Retourner la position en éléments (pas en groupes)
-    return left * step;
-}
-
-template <class Container>
-size_t PmergeMe<Container>::binarySearch(Container &main, int element)
-{
-    size_t left = 0;
-    size_t right = main.size();
-    
-    while (left < right) 
-    {
-        size_t mid = (left + right) / 2;
-
-        if (main[mid] < element) 
-            left = mid + 1;
-        else
-            right = mid;
-    }
-    return left;
-}
-
-template <class Container>
-void PmergeMe<Container>::insertion(Container& main, Container& pend)
-{
-  if (pend.empty()) return;
-    
-    std::cout << "=== INSERTION START ===" << std::endl;
-    std::cout << "main.size() = " << main.size() << ", pend.size() = " << pend.size() << std::endl;
-    std::cout << "step = " << step << std::endl;
-    
-    // Calculer le nombre de groupes
-    int groups_in_pend = pend.size() / step;
-    std::cout << "groups_in_pend = " << groups_in_pend << std::endl;
-    
-    // Tracker des groupes insérés
-    std::vector<bool> inserted(groups_in_pend, false);
-    
-    // Phase 1: Insertion Jacobsthal
-    int jacob_idx = 1;
-    while (getJacob(jacob_idx) <= groups_in_pend) {
-        
-        int current_jacob = getJacob(jacob_idx);
-        int previous_jacob = getJacob(jacob_idx - 1);
-        
-        std::cout << "Jacobsthal range: " << previous_jacob << " to " << current_jacob << std::endl;
-        
-        for (int group_idx = std::min(current_jacob - 1, groups_in_pend - 1); 
-             group_idx >= previous_jacob; 
-             group_idx--) {
-             
-            if (group_idx >= 0 && group_idx < groups_in_pend && !inserted[group_idx]) {
-                
-                std::cout << "Inserting group " << group_idx << std::endl;
-                int compare_element = pend[group_idx * step + step - 1];
-                size_t pos = binarySearchGroup(main, compare_element);
-                for (int i = 0; i < step; i++)
-                    main.insert(main.begin() + pos + i, pend[group_idx * step + i]);   
-                inserted[group_idx] = true;
-            }
-        }
-        
-        jacob_idx++;
-    }
-    
-    for (int group_idx = 0; group_idx < groups_in_pend; group_idx++) {
-        if (!inserted[group_idx]) {
-            std::cout << "Inserting remaining group " << group_idx << std::endl;
-            
-            int compare_element = pend[group_idx * step + step - 1];
-            size_t pos = binarySearchGroup(main, compare_element);
-            
-            for (int i = 0; i < step; i++) {
-                main.insert(main.begin() + pos + i, pend[group_idx * step + i]);
-            }
-            
-            std::cout << "main.size() = " << main.size() << std::endl;
-        }
-    }
-    
-    // Phase 3: Éléments individuels restants
-    int remaining_start = groups_in_pend * step;
-    
-    for (int i = remaining_start; i < static_cast<int>(pend.size()); i++) {
-        int element = pend[i];
-        size_t pos = binarySearchGroup(main, element);
-        main.insert(main.begin() + pos, element);
-        
-        std::cout << "Inserted individual element " << element << std::endl;
-    }
-    
-    std::cout << "main = ";    
-    std::cout << "=== INSERTION END ===" << std::endl;
-}
-
-template <class Container>
-void PmergeMe<Container>::initChain(Container &c, Container &main, Container &pend)
-{
-    typename Container::iterator it;
-    unsigned long pair_len = step * 2;
-
-    main.insert(main.end(), c.begin(), c.begin() + pair_len);
-
-    for (it = c.begin() + pair_len; it + pair_len <= c.end(); it += pair_len)
-    {
-        pend.insert(pend.end(), it, it + step);
-        main.insert(main.end(), it + step, it + pair_len);
-    }
-    if (it != c.end()) 
-        pend.insert(pend.end(), it, c.end());
-}
-
-template <class Container>
-void PmergeMe<Container>::makePair(Container &c)
-{
-    if (c.size() / (1 << level) < 2) 
-        return;
-
-    typename Container::iterator it;
-    
-    step = 1 << level;
-
-    std::cout << "=========== FOR LEVEL " << level << "===========" << std::endl;
-
-    std::cout << "before swap : ";
-    printPair(c);
-    for (it = c.begin() + step - 1; it + step + 1 < c.end(); it += step) 
-    {
-        if (*(it + step) < *it) 
-            std::swap_ranges(it + 1 - step, it + 1, it + 1);
-        it += step;
-    }
-    
-    level++;
-    std::cout << "ater swap : ";
-    printPair(c);
-    
-    makePair(c);
-}
-
-template <class Container>
-void PmergeMe<Container>::sort(Container &c)
-{   
-    makePair(c);
-
-    Container main;
-    Container pend;
-    
-    while (step >= 1)
-    {
-        main.clear();
-        pend.clear();
-        initChain(c, main, pend);                
-        if (!pend.empty()) 
-            insertion(main, pend);
-        c = main;
-        step /= 2;
-    }
+    sort();
 }
