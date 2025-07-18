@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:45:26 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/07/15 18:02:13 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:24:36 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ void PmergeMe<Container>::printData()
         std::cout << data[i] << " ";
     }
     std::cout << std::endl;
+}
+
+template <class Container>
+Container PmergeMe<Container>::getData()
+{
+    return (data);
 }
 
 template <class Container>
@@ -105,18 +111,12 @@ void PmergeMe<Container>::makePair(int step)
 {
     typename Container::iterator it;
 
-    std::cout << "=========== FOR LEVEL " << level << "===========" << std::endl;
-
-    std::cout << "before swap : ";
-    printPair(sorted, step);
     for (it = sorted.begin() + step - 1; it + step < sorted.end(); it += step * 2) 
     {
         if (*(it + step) < *it) 
             std::swap_ranges(it + 1 - step, it + 1, it + 1);
     }
     level++;
-    std::cout << "ater swap : ";
-    printPair(sorted, step);
 }
 
 template <class Container>
@@ -142,73 +142,68 @@ void PmergeMe<Container>::initChain(Container &main, Container &pend, int step)
 		res_it += step;
 		sorted_it += step;
 	}
+    pend.insert(pend_it, sorted_it, sorted.end());
     main.resize(main.size() - pend.size());
+}
+
+template <class Container>
+int PmergeMe<Container>::binarySearch(Container &main, int value, int step)
+{
+    int left = 0;
+    int right = main.size() / step;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        int midValue = *(main.begin() + (mid + 1) * step - 1);
+        if (midValue < value)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left * step;
 }
 
 template <class Container>
 void PmergeMe<Container>::insertion(Container &main, Container &pend, int step)
 {
-    // typename Container::iterator    main_it, pend_it, pos;
-    // int                             jacob_idx = 1, pendGroup = pend.size() / step;
-    // std::vector<bool>               inserted(pendGroup, false);
-    // int							    res_len = step * (std::floor((sorted.size()/ (2.0 * step)) - 1) + 2);
+    typename Container::iterator    pos, insert_it;
+    int                             idx, pendGroup;
+
+    pendGroup = pend.size() / step;
     
-    // main_it = main.begin();
-    // pend_it = pend.begin();
-    int pendGroup = pend.size() / step;
     std::vector<bool> inserted(pendGroup, false);
 
-    int jacob_idx = 1;
-    while (getJacob(jacob_idx) <= pendGroup) {
-        int current_jacob = getJacob(jacob_idx);
-        int previous_jacob = getJacob(jacob_idx - 1);
-
-        for (int i = std::min(current_jacob - 1, pendGroup - 1); i >= previous_jacob; i--) {
-            if (!inserted[i]) 
+    idx = 1;
+    while (pendGroup >= getJacob(idx))
+    {
+        int start = getJacob(idx - 1);
+        int end = getJacob(idx);
+        for (int i = end ; i >= start; i--)
+        {
+            if (i < pendGroup && !inserted[i])
             {
-                Container mainGroupLasts;
-                int mainGroupCount = main.size() / step;
-                for (int g = 0; g < mainGroupCount; ++g)
-                    mainGroupLasts.push_back(*(main.begin() + (g + 1) * step - 1));
-                typename Container::value_type value = *(pend.begin() + i * step + step - 1);
-                typename Container::iterator groupPos = std::lower_bound(mainGroupLasts.begin(), mainGroupLasts.end(), value);
-                int insertIdx = std::distance(mainGroupLasts.begin(), groupPos);
-                typename Container::iterator insert_pos = main.begin() + insertIdx * step;
-                main.insert(insert_pos, pend.begin() + i * step, pend.begin() + (i + 1) * step);
+                insert_it = pend.begin() + (i + 1) * step - 1;
+                pos = main.begin() + binarySearch(main, *insert_it, step);
+                main.insert(pos, insert_it - step + 1, insert_it + 1);
                 inserted[i] = true;
             }
         }
-        jacob_idx++;
+        idx++;
     }
-
-    for (int i = pendGroup - 1; i >= 0; i--) {
-        if (!inserted[i]) {
-            std::vector<typename Container::value_type> mainGroupLasts;
-            int mainGroupCount = main.size() / step;
-            for (int g = 0; g < mainGroupCount; ++g)
-                mainGroupLasts.push_back(*(main.begin() + (g + 1) * step - 1));
-
-             typename Container::value_type value = *(pend.begin() + i * step + step - 1);
-            typename Container::iterator groupPos = std::lower_bound(mainGroupLasts.begin(), mainGroupLasts.end(), value);
-
-            int insertIdx = std::distance(mainGroupLasts.begin(), groupPos);
-            typename Container::iterator insert_pos = main.begin() + insertIdx * step;
-
-            main.insert(insert_pos, pend.begin() + i * step, pend.begin() + (i + 1) * step);
+    for (int i = pendGroup - 1; i >= 0; --i) 
+    {
+        if (!inserted[i])
+        {
+            insert_it = pend.begin() + (i + 1) * step - 1;
+            pos = main.begin() + binarySearch(main, *insert_it, step);
+            main.insert(pos, insert_it - step + 1, insert_it + 1);
+            inserted[i] = true;
         }
     }
-
-    // Insérer les éléments restants (non groupés)
     int rest = pend.size() % step;
-    if (rest) {
-        typename Container::iterator it = pend.end() - rest;
-        for (; it != pend.end(); ++it) {
-            typename Container::iterator pos = std::lower_bound(main.begin(), main.end(), *it);
-            main.insert(pos, *it);
-        }
-    }
+    if (rest != 0)
+        main.insert(main.end(), pend.end() - rest, pend.end());
 }
-
 
 template <class Container>
 void PmergeMe<Container>::sort()
@@ -228,22 +223,11 @@ void PmergeMe<Container>::sort()
 
     if (pend.size() == 0)
         return;
-        
+
     initChain(main, pend, step);
-    std::cout << "=========== INSERTION PART ===========" << std::endl << "---- for step " << step << "----" << std::endl;
-    std::cout << "--- before insertion -----" << std::endl;
-    std::cout << "main : ";
-    printPair(main, step);
-    std::cout << "pend : ";
-    printPair(pend, step);
-
     insertion(main, pend, step);
-
-    std::cout << "--- after insertion -----" << std::endl;
-    std::cout << "main : ";
-    printPair(main, step);
-
-    sorted = main;
+    
+    this->sorted = main;
 
 	return ;
 }
