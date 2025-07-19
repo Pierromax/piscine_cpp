@@ -6,7 +6,7 @@
 /*   By: ple-guya <ple-guya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:33:56 by ple-guya          #+#    #+#             */
-/*   Updated: 2025/03/13 13:42:02 by ple-guya         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:39:13 by ple-guya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ void    BitcoinExchange::loadDataBase(std::string const &filename)
             throw (std::invalid_argument("database not valid"));
         str_date = line.substr(0,pos);
         str_value = line.substr(pos+1);
+        memset(&tm, 0, sizeof(tm));
         if (strptime(str_date.c_str(), "%Y-%m-%d", &tm) == NULL)
             throw (std::invalid_argument("database not valid"));
+        tm.tm_isdst = -1;
         date = mktime(&tm);
         std::istringstream(str_value) >> value;
         dataBase[date] = value;
@@ -116,6 +118,7 @@ void    BitcoinExchange::run(std::string const &inputFile)
         str_date = line.substr(0, pos);
         if (pos != std::string::npos && strptime(str_date.c_str(), "%Y-%m-%d", &tm) != NULL)
         {
+            tm.tm_isdst = -1;
             str_value = line.substr(pos + 1);
             date = mktime(&tm);
             try {
@@ -133,18 +136,17 @@ void    BitcoinExchange::run(std::string const &inputFile)
 
 float   BitcoinExchange::FindDB(time_t date)
 {
-    std::map<time_t, float>::iterator it = dataBase.begin();
-    float  closest_rate = 0;
+    std::map<time_t, float>::iterator it = dataBase.lower_bound(date);
     
-    for (; it != dataBase.end(); it++)
-    {
-        if (it->first == date)
-            return (it->second);
-        if (it->first > date)
-            return (closest_rate);
-        closest_rate = it->second;
-    }
-    throw std::runtime_error("Error: no valid exchange rate found in database");
+    if (it != dataBase.end() && it->first == date)
+        return it->second;
+
+    if (it == dataBase.begin())
+        throw std::runtime_error("Error: no valid exchange rate found in database");
+    
+    --it;
+    
+    return it->second;
 }
 
 void    BitcoinExchange::is_valid_value(float *value, std::string str_value)
